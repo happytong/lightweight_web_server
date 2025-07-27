@@ -1,0 +1,127 @@
+# ./backend
+Starting System Monitor Backend
+Target web server: 127.0.0.1:12345
+Creating SystemMonitor object...
+SystemMonitor constructor: Starting initialization
+initialize_devices: Starting
+initialize_devices: Cleared devices
+initialize_devices: Reserved space
+initialize_devices: Added Device1
+initialize_devices: Added Device2
+initialize_devices: Added Device3
+initialize_devices: Added Network Controller
+initialize_devices: Added Storage Unit
+initialize_devices: Added Comm Link
+Initialized 6 devices
+SystemMonitor constructor: Initialization complete
+SystemMonitor object created successfully
+
+=== Current Device Status ===
+Device1             : ok
+Device2             : ok
+Device3             : ok
+Network Controller  : operational
+Storage Unit        : operational
+Comm Link           : active
+=============================
+
+System Monitor started
+Monitoring 6 devices, updating every 5 seconds
+Web server: 127.0.0.1:12345
+Starting notification listener on port 54321
+Notification listener ready on port 54321
+[1970-01-01 00:22:55] Generated system status: 'Operational'
+Encoding system status: 'Operational' -> 'Operational'
+POST body: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (275 bytes)
+[1970-01-01 00:23:00] Generated system status: 'Operational'
+Encoding system status: 'Operational' -> 'Operational'
+POST body: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (275 bytes)
+[1970-01-01 00:23:05] Generated system status: 'Operational'
+Encoding system status: 'Operational' -> 'Operational'
+POST body: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (275 bytes)
+[1970-01-01 00:23:10] Device 'Storage Unit' changed to FAULT
+[1970-01-01 00:23:10] Generated system status: 'Warning: 1 device fault'
+Encoding system status: 'Warning: 1 device fault' -> 'Warning%3A+1+device+fault'
+POST body: system_status=Warning%3A+1+device+fault&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=fault&Comm+Link=active
+Status update sent to web server (283 bytes)
+[1970-01-01 00:23:15] Device 'Network Controller' changed to FAULT
+[1970-01-01 00:23:15] Device 'Storage Unit' recovered to operational
+[1970-01-01 00:23:15] Generated system status: 'Warning: 1 device fault'
+Encoding system status: 'Warning: 1 device fault' -> 'Warning%3A+1+device+fault'
+POST body: system_status=Warning%3A+1+device+fault&Device1=ok&Device2=ok&Device3=ok&Network+Controller=fault&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (283 bytes)
+Received notification from webserver:
+SYSTEM_STATUS_UPDATE:System in good condition
+DEVICE:Device1=ok
+DEVICE:Device2=ok
+DEVICE:Device3=ok
+DEVICE:Network Controller=fault
+DEVICE:Storage Unit=operational
+DEVICE:Comm Link=active
+END
+
+Debug: parsing line: 'SYSTEM_STATUS_UPDATE:System in good condition'
+Debug: line length: 45
+Debug: 'SYSTEM_STATUS_UPDATE:' length: 21
+Debug: extracted status: 'System in good condition'
+Backend received system status override: 'System in good condition'
+Backend updated device 'Device1' to 'ok'
+Backend updated device 'Device2' to 'ok'
+Backend updated device 'Device3' to 'ok'
+Backend updated device 'Network Controller' to 'fault'
+Backend updated device 'Storage Unit' to 'operational'
+Backend updated device 'Comm Link' to 'active'
+[1970-01-01 00:23:20] Device 'Network Controller' recovered to operational
+[1970-01-01 00:23:20] Device 'Comm Link' changed to FAULT
+[1970-01-01 00:23:20] Using external system status: 'System in good condition'
+Encoding system status: 'System in good condition' -> 'System+in+good+condition'
+POST body: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=fault
+Status update sent to web server (287 bytes)
+[1970-01-01 00:23:25] Device 'Comm Link' recovered to active
+[1970-01-01 00:23:25] Using external system status: 'System in good condition'
+Encoding system status: 'System in good condition' -> 'System+in+good+condition'
+POST body: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (288 bytes)
+[1970-01-01 00:23:30] Using external system status: 'System in good condition'
+Encoding system status: 'System in good condition' -> 'System+in+good+condition'
+POST body: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (288 bytes)
+Received notification from webserver:
+SYSTEM_STATUS_UPDATE:System in good condition
+DEVICE:Device1=offline
+DEVICE:Device2=ok
+DEVICE:Device3=ok
+DEVICE:Network Controller=operational
+DEVICE:Storage Unit=operational
+DEVICE:Comm Link=active
+END
+
+Debug: parsing line: 'SYSTEM_STATUS_UPDATE:System in good condition'
+Debug: line length: 45
+Debug: 'SYSTEM_STATUS_UPDATE:' length: 21
+Debug: extracted status: 'System in good condition'
+Backend received system status override: 'System in good condition'
+Backend updated device 'Device1' to 'offline'
+Backend updated device 'Device2' to 'ok'
+Backend updated device 'Device3' to 'ok'
+Backend updated device 'Network Controller' to 'operational'
+Backend updated device 'Storage Unit' to 'operational'
+Backend updated device 'Comm Link' to 'active'
+[1970-01-01 00:23:35] Device 'Device1' recovered to ok
+[1970-01-01 00:23:35] Device 'Device2' changed to FAULT
+[1970-01-01 00:23:35] Device 'Comm Link' changed to FAULT
+[1970-01-01 00:23:35] Using external system status: 'System in good condition'
+Encoding system status: 'System in good condition' -> 'System+in+good+condition'
+POST body: system_status=System+in+good+condition&Device1=ok&Device2=fault&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=fault
+Status update sent to web server (290 bytes)
+[1970-01-01 00:23:40] Device 'Device2' recovered to ok
+[1970-01-01 00:23:40] Device 'Comm Link' recovered to active
+[1970-01-01 00:23:40] Using external system status: 'System in good condition'
+Encoding system status: 'System in good condition' -> 'System+in+good+condition'
+POST body: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+Status update sent to web server (288 bytes)
+
+#

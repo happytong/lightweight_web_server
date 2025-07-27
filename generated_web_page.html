@@ -1,0 +1,242 @@
+
+<!-- saved from url=(0024)http://192.168.1.6:8080/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>COMM SYSTEM STATUS</title><style>body { font-family: Arial, sans-serif; margin: 20px; background-color: #f5f5f5; }.container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }h1 { color: #2c3e50; text-align: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; }.status-summary { background: #ecf0f1; padding: 15px; border-radius: 5px; margin: 20px 0; text-align: center; }.status-summary h2 { margin: 0; color: #2c3e50; }.status-value { font-size: 1.2em; font-weight: bold; color: #27ae60; }table { width: 100%; border-collapse: collapse; margin-top: 20px; }th { background-color: #3498db; color: white; text-align: left; padding: 12px; }td { padding: 12px; border-bottom: 1px solid #ddd; }tr:nth-child(even) { background-color: #f2f2f2; }.ok { color: #27ae60; font-weight: bold; }.fault { color: #e74c3c; font-weight: bold; }.operational { color: #2980b9; font-weight: bold; }.degraded { color: #f39c12; font-weight: bold; }.active { color: #16a085; font-weight: bold; }/* Form Styling */.update-form {  background-color: #f8f9fa;  border: 1px solid #dee2e6;  border-radius: 8px;  padding: 20px;  margin: 20px 0;}.update-form h3 {  margin: 0 0 15px 0;  color: #343a40;  font-size: 1.1em;}.form-row {  display: flex;  align-items: center;  gap: 10px;  flex-wrap: wrap;}.form-row input, .form-row select {  border: 1px solid #ced4da;  border-radius: 4px;  font-size: 14px;}.form-row button:hover {  opacity: 0.9;  transform: translateY(-1px);}</style>
+<script>
+console.log('JavaScript loading...');
+console.log('About to define refreshStatus function...');
+function refreshStatus() {
+  console.log('refreshStatus() called - about to fetch /check_status');
+  var fetchPromise = fetch('/check_status');
+  console.log('fetch() called, promise object:', fetchPromise);
+  fetchPromise
+    .then(function(r) { 
+      console.log('refreshStatus: response received:', r.status, r.statusText);
+      return r.json(); 
+    })
+    .then(function(data) { 
+      console.log('refreshStatus: JSON data received:', data);
+      document.getElementById('status-value').innerText = data.status; 
+      document.getElementById('last-updated').innerText = data.timestamp;
+      console.log('refreshStatus: DOM updated successfully');
+    })
+    .catch(function(e) { 
+      console.error('refreshStatus: fetch error:', e);
+      console.error('refreshStatus: error details:', e.message, e.stack);
+    });
+}
+console.log('refreshStatus function defined successfully');
+
+console.log('About to define refreshDevices function...');
+function refreshDevices() {
+  console.log('refreshDevices() called - starting device status fetch');
+  console.log('About to fetch /device_status_json...');
+  var deviceFetchPromise = fetch('/device_status_json');
+  console.log('device fetch() called, promise object:', deviceFetchPromise);
+  deviceFetchPromise
+    .then(function(response) {
+      console.log('Device status response received:', response.status, response.statusText);
+      console.log('Response headers:', response.headers);
+      console.log('Response URL:', response.url);
+      if (!response.ok) {
+        console.error('Response not OK, throwing error');
+        throw new Error('HTTP ' + response.status);
+      }
+      console.log('Response OK, parsing JSON...');
+      return response.json();
+    })
+    .then(function(data) {
+      console.log('Device JSON data received:', JSON.stringify(data));
+      if (!data.devices || !Array.isArray(data.devices)) {
+        console.error('Invalid device data format:', data);
+        throw new Error('Invalid device data format');
+      }
+      var devices = data.devices;
+      console.log('Processing', devices.length, 'devices');
+      var tbody = document.querySelector('#device-table tbody');
+      if (!tbody) {
+        console.error('Could not find tbody element');
+        return;
+      }
+      console.log('Found tbody element, clearing content');
+      tbody.innerHTML = '';
+      for (var i = 0; i < devices.length; i++) {
+        var device = devices[i];
+        console.log('Adding device:', device.name, device.status);
+        var row = tbody.insertRow();
+        var nameCell = row.insertCell(0);
+        var statusCell = row.insertCell(1);
+        nameCell.textContent = device.name;
+        statusCell.textContent = device.status;
+        var statusClass = 'ok';
+        if (device.status === 'fault') statusClass = 'fault';
+        else if (device.status === 'operational') statusClass = 'operational';
+        else if (device.status === 'degraded') statusClass = 'degraded';
+        else if (device.status === 'active') statusClass = 'active';
+        statusCell.className = statusClass;
+      }
+      if (data.timestamp) {
+        console.log('Updating timestamp to:', data.timestamp);
+        document.getElementById('last-updated').innerText = data.timestamp;
+      }
+      console.log('Table update completed successfully');
+    })
+    .catch(function(error) {
+      console.error('Error fetching device status:', error);
+      console.error('Error details:', error.message, error.stack);
+      document.getElementById('last-updated').innerText = 'Error: ' + error.message;
+    });
+  console.log('About to fetch /check_status for system status...');
+  var statusFetchPromise = fetch('/check_status');
+  console.log('system status fetch() called, promise object:', statusFetchPromise);
+  statusFetchPromise
+    .then(function(response) {
+      console.log('System status response received:', response.status, response.statusText);
+      if (!response.ok) throw new Error('HTTP ' + response.status);
+      return response.json();
+    })
+    .then(function(data) {
+      console.log('System status data received:', JSON.stringify(data));
+      if (data.status) {
+        console.log('Updating system status to:', data.status);
+        document.getElementById('status-value').innerText = data.status;
+      }
+    })
+    .catch(function(error) {
+      console.error('Error fetching system status:', error);
+      console.error('System status error details:', error.message, error.stack);
+    });
+}
+console.log('refreshDevices function defined successfully');
+
+console.log('About to define refreshAll function...');
+function refreshAll() {
+  console.log('refreshAll() called at:', new Date().toLocaleTimeString());
+  refreshDevices();
+}
+console.log('refreshAll function defined successfully');
+
+console.log('About to define startRefreshTimer function...');
+var refreshTimer; // Global timer variable
+function startRefreshTimer() {
+  console.log('startRefreshTimer() called');
+  console.log('Starting refresh timer (10 second interval)...');
+  // Clear existing timer if any
+  if (refreshTimer) {
+    clearInterval(refreshTimer);
+    console.log('Cleared existing refresh timer');
+  }
+  refreshTimer = setInterval(function() {
+    console.log('Timer triggered at:', new Date().toLocaleTimeString());
+    refreshAll();
+  }, 10000);
+  console.log('Timer setup complete (10 second refresh)');
+}
+function resetRefreshTimer() {
+  console.log('resetRefreshTimer() called - resetting 10s countdown');
+  startRefreshTimer(); // This clears old timer and starts new one
+}
+console.log('startRefreshTimer function defined successfully');
+
+console.log('About to define DOMContentLoaded listener...');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOMContentLoaded event fired at:', new Date().toLocaleTimeString());
+  console.log('Starting initial refresh in 500ms...');
+  setTimeout(function() {
+    console.log('Timeout fired, calling refreshAll()...');
+    refreshAll();
+  }, 500);
+  startRefreshTimer();
+});
+console.log('DOMContentLoaded listener defined successfully');
+
+// Form submission functions
+console.log('About to define form submission functions...');
+function submitSystemUpdate() {
+  console.log('submitSystemUpdate() called');
+  var statusInput = document.getElementById('new-system-status');
+  var newStatus = statusInput.value.trim();
+  if (!newStatus) {
+    alert('Please enter a system status');
+    return;
+  }
+  console.log('Submitting system status update:', newStatus);
+  var formData = new FormData();
+  formData.append('system_status', newStatus);
+  formData.append('source', 'webpage');
+  console.log('About to fetch POST /update_system_web...');
+  var updatePromise = fetch('/update_system_web', {
+    method: 'POST',
+    body: formData
+  });
+  console.log('system update fetch() called, promise object:', updatePromise);
+  updatePromise
+  .then(function(response) {
+    console.log('System update response received:', response.status, response.statusText);
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    return response.text();
+  })
+  .then(function(data) {
+    console.log('Update successful:', data);
+    statusInput.value = '';
+    // Reset the 10-second timer immediately (before showing alert)
+    resetRefreshTimer();
+    console.log('System update: 10s timer reset, next refresh in 10 seconds');
+    // Show alert after timer is already started
+    alert('System status updated successfully!');
+  })
+  .catch(function(error) {
+    console.error('Update failed:', error);
+    console.error('Update error details:', error.message, error.stack);
+    alert('Failed to update system status: ' + error.message);
+  });
+}
+
+function submitDeviceUpdate() {
+  console.log('submitDeviceUpdate() called');
+  var deviceSelect = document.getElementById('device-select');
+  var statusSelect = document.getElementById('status-select');
+  var deviceName = deviceSelect.value;
+  var newStatus = statusSelect.value;
+  if (!deviceName || !newStatus) {
+    alert('Please select both device and status');
+    return;
+  }
+  console.log('Submitting device update:', deviceName, '->', newStatus);
+  var formData = new FormData();
+  formData.append('device_name', deviceName);
+  formData.append('device_status', newStatus);
+  formData.append('source', 'webpage');
+  console.log('About to fetch POST /update_device_web...');
+  var deviceUpdatePromise = fetch('/update_device_web', {
+    method: 'POST',
+    body: formData
+  });
+  console.log('device update fetch() called, promise object:', deviceUpdatePromise);
+  deviceUpdatePromise
+  .then(function(response) {
+    console.log('Device update response received:', response.status, response.statusText);
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    return response.text();
+  })
+  .then(function(data) {
+    console.log('Device update successful:', data);
+    deviceSelect.selectedIndex = 0;
+    statusSelect.selectedIndex = 0;
+    // Reset the 10-second timer immediately (before showing alert)
+    console.log('About to call resetRefreshTimer()...');
+    resetRefreshTimer();
+    console.log('Device update: 10s timer reset, next refresh in 10 seconds');
+    // Show alert after timer is already started
+    alert('Device status updated successfully!');
+  })
+  .catch(function(error) {
+    console.error('Device update failed:', error);
+    console.error('Device update error details:', error.message, error.stack);
+    alert('Failed to update device status: ' + error.message);
+  });
+}
+console.log('Form submission functions defined successfully');
+
+console.log('JavaScript loaded successfully');
+</script>
+</head><body><div class="container"><h1>COMM SYSTEM STATUS</h1><div class="status-summary"><h2>Current System Status</h2><div id="status-value" class="status-value">Operational</div><div style="margin-top: 10px; font-size: 0.9em; color: #7f8c8d;">Last Updated: <span id="last-updated">1970-01-01 00:28:04</span></div></div><!-- System Status Update Form --><div class="update-form"><h3>Update System Status</h3><div class="form-row"><input type="text" id="new-system-status" placeholder="Enter new system status" style="width: 300px; padding: 8px; margin-right: 10px;"><button onclick="submitSystemUpdate()" style="padding: 8px 16px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">Update System</button></div></div><!-- Device Status Update Form --><div class="update-form"><h3>Update Device Status</h3><div class="form-row"><select id="device-select" style="padding: 8px; margin-right: 10px; width: 150px;"><option value="">Select Device</option><option value="Device1">Device1</option><option value="Device2">Device2</option><option value="Device3">Device3</option><option value="Network Controller">Network Controller</option><option value="Storage Unit">Storage Unit</option><option value="Comm Link">Comm Link</option></select><select id="status-select" style="padding: 8px; margin-right: 10px; width: 120px;"><option value="">Select Status</option><option value="ok">OK</option><option value="operational">Operational</option><option value="active">Active</option><option value="degraded">Degraded</option><option value="fault">Fault</option><option value="offline">Offline</option></select><button onclick="submitDeviceUpdate()" style="padding: 8px 16px; background-color: #27ae60; color: white; border: none; border-radius: 4px; cursor: pointer;">Update Device</button></div></div><table id="device-table"><thead><tr><th>Device</th><th>Status</th></tr></thead><tbody><tr><td>Device1</td><td class="ok">ok</td></tr><tr><td>Device2</td><td class="fault">fault</td></tr><tr><td>Device3</td><td class="ok">ok</td></tr><tr><td>Network Controller</td><td class="operational">operational</td></tr><tr><td>Storage Unit</td><td class="degraded">degraded</td></tr><tr><td>Comm Link</td><td class="active">active</td></tr></tbody></table></div></body></html>

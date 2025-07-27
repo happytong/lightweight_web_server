@@ -1,0 +1,310 @@
+
+#
+# ./WebServer
+Dual-port web server starting...
+Backend API listening on port 12345
+Web interface listening on port 8080
+BACKEND accepted connection: accept 1, connection 1 (active backend connections: 1)
+[BACKEND] Request recv connection 1: (275 bytes)
+[BACKEND] Connection 1: HTTP/1.1, keep_alive=false
+[BACKEND] connection 1 processing POST /update_system
+[BACKEND] [1970-01-01 00:22:55] Raw POST body received: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'system_status' = 'Operational'
+[BACKEND] [1970-01-01 00:22:55] System status updated: Operational
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:22:55] Device 'Device2' status changed: fault -> ok
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:22:55] Device 'Storage Unit' status changed: degraded -> operational
+[BACKEND] [1970-01-01 00:22:55] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 1
+[BACKEND] Closing connection 1 (keep-alive: false)
+[BACKEND] close connection 1 (remaining backend connections: 0)
+BACKEND accepted connection: accept 2, connection 2 (active backend connections: 1)
+[BACKEND] Request recv connection 2: (275 bytes)
+[BACKEND] Connection 2: HTTP/1.1, keep_alive=false
+[BACKEND] connection 2 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:00] Raw POST body received: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'system_status' = 'Operational'
+[BACKEND] [1970-01-01 00:23:00] System status updated: Operational
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:00] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 2
+[BACKEND] Closing connection 2 (keep-alive: false)
+[BACKEND] close connection 2 (remaining backend connections: 0)
+WEB accepted connection: accept 3, connection 3 (active web connections: 1)
+WEB accepted connection: accept 4, connection 4 (active web connections: 2)
+[WEB] Request recv connection 3: (487 bytes)
+[WEB] Request recv connection 4: (493 bytes)
+[WEB] Connection 3: HTTP/1.1, keep_alive=true
+[WEB] connection 3 processing GET /check_status
+[WEB] Connection 4: HTTP/1.1, keep_alive=true
+[WEB] connection 4 processing GET /device_status_json
+[WEB] Sent response for connection 3
+[WEB] Keeping connection 3 alive
+[WEB] Serving device status JSON: 6 devices
+[WEB] JSON response: {"devices":[{"name":"Device1","status":"ok"},{"name":"Device2","status":"ok"},{"name":"Device3","status":"ok"},{"name":"Network Controller","status":"operational"},{"name":"Storage Unit","status":"operational"},{"name":"Comm Link","status":"active"}],"timestamp":"1970-01-01 00:23:00"}
+[WEB] Sent response for connection 4
+[WEB] Keeping connection 4 alive
+BACKEND accepted connection: accept 5, connection 5 (active backend connections: 1)
+[BACKEND] Request recv connection 5: (275 bytes)
+[BACKEND] Connection 5: HTTP/1.1, keep_alive=false
+[BACKEND] connection 5 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:05] Raw POST body received: system_status=Operational&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'system_status' = 'Operational'
+[BACKEND] [1970-01-01 00:23:05] System status updated: Operational
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:05] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 5
+[BACKEND] Closing connection 5 (keep-alive: false)
+[BACKEND] close connection 5 (remaining backend connections: 0)
+[WEB] Connection 3: Receive timeout
+[WEB] close connection 3 (remaining web connections: 1)
+[WEB] Connection 4: Receive timeout
+[WEB] close connection 4 (remaining web connections: 0)
+BACKEND accepted connection: accept 6, connection 6 (active backend connections: 1)
+[BACKEND] Request recv connection 6: (283 bytes)
+[BACKEND] Connection 6: HTTP/1.1, keep_alive=false
+[BACKEND] connection 6 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:10] Raw POST body received: system_status=Warning%3A+1+device+fault&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=fault&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'system_status' = 'Warning: 1 device fault'
+[BACKEND] [1970-01-01 00:23:10] System status updated: Warning: 1 device fault
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Storage Unit' = 'fault'
+[BACKEND] [1970-01-01 00:23:10] Device 'Storage Unit' status changed: operational -> fault
+[BACKEND] [1970-01-01 00:23:10] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 6
+[BACKEND] Closing connection 6 (keep-alive: false)
+[BACKEND] close connection 6 (remaining backend connections: 0)
+WEB accepted connection: accept 7, connection 7 (active web connections: 1)
+WEB accepted connection: accept 8, connection 8 (active web connections: 2)
+[WEB] Request recv connection 7: (493 bytes)
+[WEB] Request recv connection 8: (487 bytes)
+[WEB] Connection 7: HTTP/1.1, keep_alive=true
+[WEB] connection 7 processing GET /device_status_json
+[WEB] Connection 8: HTTP/1.1, keep_alive=true
+[WEB] connection 8 processing GET /check_status
+[WEB] Serving device status JSON: 6 devices
+[WEB] JSON response: {"devices":[{"name":"Device1","status":"ok"},{"name":"Device2","status":"ok"},{"name":"Device3","status":"ok"},{"name":"Network Controller","status":"operational"},{"name":"Storage Unit","status":"fault"},{"name":"Comm Link","status":"active"}],"timestamp":"1970-01-01 00:23:10"}
+[WEB] Sent response for connection 8
+[WEB] Keeping connection 8 alive
+[WEB] Sent response for connection 7
+[WEB] Keeping connection 7 alive
+BACKEND accepted connection: accept 9, connection 9 (active backend connections: 1)
+[BACKEND] Request recv connection 9: (283 bytes)
+[BACKEND] Connection 9: HTTP/1.1, keep_alive=false
+[BACKEND] connection 9 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:15] Raw POST body received: system_status=Warning%3A+1+device+fault&Device1=ok&Device2=ok&Device3=ok&Network+Controller=fault&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'system_status' = 'Warning: 1 device fault'
+[BACKEND] [1970-01-01 00:23:15] System status updated: Warning: 1 device fault
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Network Controller' = 'fault'
+[BACKEND] [1970-01-01 00:23:15] Device 'Network Controller' status changed: operational -> fault
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:15] Device 'Storage Unit' status changed: fault -> operational
+[BACKEND] [1970-01-01 00:23:15] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 9
+[BACKEND] Closing connection 9 (keep-alive: false)
+[BACKEND] close connection 9 (remaining backend connections: 0)
+[WEB] Connection 8: Receive timeout
+[WEB] close connection 8 (remaining web connections: 1)
+[WEB] Connection 7: Receive timeout
+[WEB] close connection 7 (remaining web connections: 0)
+WEB accepted connection: accept 10, connection 10 (active web connections: 1)
+[WEB] Request recv connection 10: (899 bytes)
+[WEB] Connection 10: HTTP/1.1, keep_alive=true
+[WEB] connection 10 processing POST /update_system_web
+[WEB] [1970-01-01 00:23:20] Raw POST body received: ------WebKitFormBoundaryDxhwft4hBSRxREuE
+Content-Disposition: form-data; name="system_status"
+
+System in good condition
+------WebKitFormBoundaryDxhwft4hBSRxREuE
+Content-Disposition: form-data; name="source"
+
+webpage
+------WebKitFormBoundaryDxhwft4hBSRxREuE--
+
+[WEB] [1970-01-01 00:23:20] Found system_status field at position 74
+[WEB] [1970-01-01 00:23:20] Found value start at position 98
+[WEB] [1970-01-01 00:23:20] Extracted system_status value: 'System in good condition'
+[WEB] [1970-01-01 00:23:20] System status updated: System in good condition
+[WEB] notify_backend_monitor called with system_status: 'System in good condition'
+[WEB] Attempting to connect to backend monitor at 127.0.0.1:54321
+[WEB] Successfully connected to backend monitor
+[WEB] Successfully connected to backend monitor
+[WEB] Sending notification message:
+SYSTEM_STATUS_UPDATE:System in good condition
+DEVICE:Device1=ok
+DEVICE:Device2=ok
+DEVICE:Device3=ok
+DEVICE:Network Controller=fault
+DEVICE:Storage Unit=operational
+DEVICE:Comm Link=active
+END
+[WEB] Sent status update notification to backend monitor (192 bytes)
+[WEB] [1970-01-01 00:23:20] System status update successful - client will reset 10s refresh timer
+[WEB] Sent response for connection 10
+[WEB] Keeping connection 10 alive
+BACKEND accepted connection: accept 11, connection 11 (active backend connections: 1)
+[BACKEND] Request recv connection 11: (287 bytes)
+[BACKEND] Connection 11: HTTP/1.1, keep_alive=false
+[BACKEND] connection 11 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:20] Raw POST body received: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=fault
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'system_status' = 'System in good condition'
+[BACKEND] [1970-01-01 00:23:20] System status updated: System in good condition
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:20] Device 'Network Controller' status changed: fault -> operational
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:20] Decoded key-value: 'Comm Link' = 'fault'
+[BACKEND] [1970-01-01 00:23:20] Device 'Comm Link' status changed: active -> fault
+[BACKEND] Sent response for connection 11
+[BACKEND] Closing connection 11 (keep-alive: false)
+[BACKEND] close connection 11 (remaining backend connections: 0)
+[WEB] Connection 10: Receive timeout
+[WEB] close connection 10 (remaining web connections: 0)
+BACKEND accepted connection: accept 12, connection 12 (active backend connections: 1)
+[BACKEND] Request recv connection 12: (288 bytes)
+[BACKEND] Connection 12: HTTP/1.1, keep_alive=false
+[BACKEND] connection 12 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:25] Raw POST body received: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'system_status' = 'System in good condition'
+[BACKEND] [1970-01-01 00:23:25] System status updated: System in good condition
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:25] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] [1970-01-01 00:23:25] Device 'Comm Link' status changed: fault -> active
+[BACKEND] Sent response for connection 12
+[BACKEND] Closing connection 12 (keep-alive: false)
+[BACKEND] close connection 12 (remaining backend connections: 0)
+WEB accepted connection: accept 13, connection 13 (active web connections: 1)
+WEB accepted connection: accept 14, connection 14 (active web connections: 2)
+[WEB] Request recv connection 13: (487 bytes)
+[WEB] Request recv connection 14: (493 bytes)
+[WEB] Connection 13: HTTP/1.1, keep_alive=true
+[WEB] connection 13 processing GET /check_status
+[WEB] Connection 14: HTTP/1.1, keep_alive=true
+[WEB] connection 14 processing GET /device_status_json
+[WEB] Sent response for connection 13
+[WEB] Keeping connection 13 alive
+[WEB] Serving device status JSON: 6 devices
+[WEB] JSON response: {"devices":[{"name":"Device1","status":"ok"},{"name":"Device2","status":"ok"},{"name":"Device3","status":"ok"},{"name":"Network Controller","status":"operational"},{"name":"Storage Unit","status":"operational"},{"name":"Comm Link","status":"active"}],"timestamp":"1970-01-01 00:23:30"}
+[WEB] Sent response for connection 14
+[WEB] Keeping connection 14 alive
+BACKEND accepted connection: accept 15, connection 15 (active backend connections: 1)
+[BACKEND] Request recv connection 15: (288 bytes)
+[BACKEND] Connection 15: HTTP/1.1, keep_alive=false
+[BACKEND] connection 15 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:30] Raw POST body received: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'system_status' = 'System in good condition'
+[BACKEND] [1970-01-01 00:23:30] System status updated: System in good condition
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:30] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] Sent response for connection 15
+[BACKEND] Closing connection 15 (keep-alive: false)
+[BACKEND] close connection 15 (remaining backend connections: 0)
+[WEB] Request recv connection 14: (987 bytes)
+[WEB] Connection 14: HTTP/1.1, keep_alive=true
+[WEB] connection 14 processing POST /update_device_web
+[WEB] [1970-01-01 00:23:34] Raw POST body received: ------WebKitFormBoundary8hAzhgGe9j2cmp5U
+Content-Disposition: form-data; name="device_name"
+
+Device1
+------WebKitFormBoundary8hAzhgGe9j2cmp5U
+Content-Disposition: form-data; name="device_status"
+
+offline
+------WebKitFormBoundary8hAzhgGe9j2cmp5U
+Content-Disposition: form-data; name="source"
+
+webpage
+------WebKitFormBoundary8hAzhgGe9j2cmp5U--
+
+[WEB] [1970-01-01 00:23:34] Found device_name field at position 74
+[WEB] [1970-01-01 00:23:34] Extracted device_name: 'Device1'
+[WEB] [1970-01-01 00:23:34] Found device_status field at position 179
+[WEB] [1970-01-01 00:23:34] Extracted device_status: 'offline'
+[WEB] [1970-01-01 00:23:34] Device 'Device1' status changed: ok -> offline
+[WEB] [1970-01-01 00:23:34] Sending device update notification to backend monitor
+[WEB] notify_backend_monitor called with system_status: 'System in good condition'
+[WEB] Attempting to connect to backend monitor at 127.0.0.1:54321
+[WEB] Successfully connected to backend monitor
+[WEB] Successfully connected to backend monitor
+[WEB] Sending notification message:
+SYSTEM_STATUS_UPDATE:System in good condition
+DEVICE:Device1=offline
+DEVICE:Device2=ok
+DEVICE:Device3=ok
+DEVICE:Network Controller=operational
+DEVICE:Storage Unit=operational
+DEVICE:Comm Link=active
+END
+[WEB] Sent status update notification to backend monitor (203 bytes)
+[WEB] [1970-01-01 00:23:34] Device status update successful - client will reset 10s refresh timer
+[WEB] Sent response for connection 14
+[WEB] Keeping connection 14 alive
+[WEB] Connection 13: Receive timeout
+[WEB] close connection 13 (remaining web connections: 1)
+BACKEND accepted connection: accept 16, connection 16 (active backend connections: 1)
+[BACKEND] Request recv connection 16: (290 bytes)
+[BACKEND] Connection 16: HTTP/1.1, keep_alive=false
+[BACKEND] connection 16 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:35] Raw POST body received: system_status=System+in+good+condition&Device1=ok&Device2=fault&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=fault
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'system_status' = 'System in good condition'
+[BACKEND] [1970-01-01 00:23:35] System status updated: System in good condition
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:35] Device 'Device1' status changed: offline -> ok
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Device2' = 'fault'
+[BACKEND] [1970-01-01 00:23:35] Device 'Device2' status changed: ok -> fault
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:35] Decoded key-value: 'Comm Link' = 'fault'
+[BACKEND] [1970-01-01 00:23:35] Device 'Comm Link' status changed: active -> fault
+[BACKEND] Sent response for connection 16
+[BACKEND] Closing connection 16 (keep-alive: false)
+[BACKEND] close connection 16 (remaining backend connections: 0)
+[WEB] Connection 14: Receive timeout
+[WEB] close connection 14 (remaining web connections: 0)
+BACKEND accepted connection: accept 17, connection 17 (active backend connections: 1)
+[BACKEND] Request recv connection 17: (288 bytes)
+[BACKEND] Connection 17: HTTP/1.1, keep_alive=false
+[BACKEND] connection 17 processing POST /update_system
+[BACKEND] [1970-01-01 00:23:40] Raw POST body received: system_status=System+in+good+condition&Device1=ok&Device2=ok&Device3=ok&Network+Controller=operational&Storage+Unit=operational&Comm+Link=active
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'system_status' = 'System in good condition'
+[BACKEND] [1970-01-01 00:23:40] System status updated: System in good condition
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Device1' = 'ok'
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Device2' = 'ok'
+[BACKEND] [1970-01-01 00:23:40] Device 'Device2' status changed: fault -> ok
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Device3' = 'ok'
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Network Controller' = 'operational'
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Storage Unit' = 'operational'
+[BACKEND] [1970-01-01 00:23:40] Decoded key-value: 'Comm Link' = 'active'
+[BACKEND] [1970-01-01 00:23:40] Device 'Comm Link' status changed: fault -> active
+[BACKEND] Sent response for connection 17
+[BACKEND] Closing connection 17 (keep-alive: false)
+[BACKEND] close connection 17 (remaining backend connections: 0)
